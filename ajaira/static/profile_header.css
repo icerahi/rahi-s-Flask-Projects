@@ -1,0 +1,27 @@
+body{
+    margin-top:20px;
+    background:#eee;
+}
+a {
+    color: #f96332;
+}
+.m-t-5{
+    margin-top: 2px;
+}
+
+.card .body {
+    font-size: 10px;
+    color: #424242;
+    padding: 5px;
+
+}
+.profile-page .profile-header {
+    position: relative
+}
+
+.profile-page .profile-header .profile-image img {
+    border-radius: 50%;
+    width: 90px;
+    border: 1px solid #fff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+}

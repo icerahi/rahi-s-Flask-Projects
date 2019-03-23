@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+    <!--   Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128284898-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-128284898-1');
+    </script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    {% block login %}
+    {% endblock %}
+
+
+
+
+    <title>AjairaHouse</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{url_for('static',filename='bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static',filename='style.css')}}" rel="stylesheet">
+
+
+    <!-- IE10 vieport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{url_for('static',filename='ie10-viewport-bug-workaround.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static',filename='navbar-fixed-top.css')}}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{url_for('static',filename='ie-emulation-modes-warning.js')}}"></script>
+
+
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{url_for('home')}}">AjairaHouse</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+
+            {% block nav %}
+            {% endblock %}
+            {% if current_user.is_authenticated %}
+            <li><a href="{{url_for('logout')}}" >Logout</a></li>
+            {% endif%}
+
+
+      </div>
+    </nav>
+
+  {% block content %} {% endblock %}
+
+
+    <script src="{{url_for('static',filename='jquery.min.js')}}"></script>
+    <script>window.jQuery || document.write('<script src="url_for('static',filename='jquery.min.js')}}"><\/script>')</script>
+    <script src="{{url_for('static',filename='bootstrap.min.js')}}"></script>
+
+    <script src="{{url_for('static',filename='ie10-viewport-bug-workaround.js')}}"></script>
+<footer>
+     <div class="container-fluid bg-primary py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+            <div class="row py-0">
+          <div class="col-sm-1 hidden-md-down">
+              <a class="bg-circle bg-info" href="#">
+                <i class="fa fa-2x fa-fw fa-address-card" aria-hidden="true "></i>
+              </a>
+            </div>
+            <div class="col-sm-11 text-white">
+                <div><h4>  AjairaHouse</h4>
+                    <p>   <span class="header-font">a</span>j<span class="header-font">a</span>irahouse.com</p>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+          <div class="d-inline-block">
+            <div class="bg-circle-outline d-inline-block" style="background-color:#3b5998">
+              <a href="https://www.facebook.com/"><i class="fa fa-2x fa-fw fa-facebook text-white"></i>
+		</a>
+            </div>
+            <div class="bg-circle-outline d-inline-block" style="background-color:#4099FF">
+              <a href="https://twitter.com/">
+                <i class="fa fa-2x fa-fw fa-twitter text-white"></i></a>
+            </div>
+
+            <div class="bg-circle-outline d-inline-block" style="background-color:#0077B5">
+              <a href="https://www.linkedin.com/company/">
+                <i class="fa fa-2x fa-fw fa-linkedin text-white"></i></a>
+            </div>
+            <div class="bg-circle-outline d-inline-block" style="background-color:#d34836">
+              <a href="https://www.google.com/">
+                <i class="fa fa-2x fa-fw fa-google text-white"></i></a>
+<p class="text-center"> Copyright © ajairahouse.com 2018. A IceCream Production. </p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+       <img src="http://hitwebcounter.com/counter/counter.php?page=7005195&style=0003&nbdigits=5&type=page&initCount=10000" title="AjairaHouse" Alt="AjairaHouse"   border="0" >
+                                                <br/>
+    </div>
+</footer>
+
+
+
+
+</body></html>

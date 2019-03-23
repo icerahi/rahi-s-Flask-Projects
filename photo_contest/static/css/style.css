@@ -1,0 +1,27 @@
+body {
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+
+.progress {
+background-color: #d9534f;
+}
+
+.radio img {
+    width: 300px;
+    margin-left: -20px;
+    margin-top: 6px;
+    border-radius: 4px;
+}
+
+.radio img:hover {
+    border: 1px blue solid;
+}
+
+.radio label {
+    font-weight: bold;
+}
+
+.fighter-choice {
+    float: left;
+    padding-right: 30px;
+}

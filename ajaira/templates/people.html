@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% block login %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{{url_for('static',filename='bootstra.min.css')}}">
+
+<link rel="stylesheet" href="{{url_for('static',filename='styless.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+{% endblock %}
+
+{% if active %}
+
+
+{% else %}
+{% block nav %}
+<li><a href="{{url_for('home')}}">Home</a></li>
+<li><a href="{{url_for('contest')}}" >Contest</a></li>
+<li><a href="{{url_for('game')}}">Game</a></li>
+<li class="active"><a href="{{url_for('people')}}" >people</a></li>
+<li><a href="{{url_for('blog')}}">Blog</a></li>
+<li><a href="{{url_for('chat')}}">Adda</a></li>
+<li class="profile" ><a href="{{url_for('profile',username=current_user.username,id=current_user.id)}}"><img  src="{{ image_file }}" alt="" />Profile</a></li>
+
+ {% endblock %}
+
+
+{% endif %}
+
+<div class="container">
+
+
+    <div class="container profile-page">
+
+            <div class="col-xl-6 col-lg-7 col-md-12">
+                <div class="card profile-header">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-12">
+                              {% for usr in user %}
+
+
+
+                            <div class="container img-container">
+                                  <div id="upload-div"></div>
+                                  <div class="img-div">
+                                    <div class="header">
+
+                                    <img class="img-circle" src="{{url_for('static',filename='img/'+usr.image_file)}}">
+                                   <b><i>{{ usr.username }}</i></b>
+                                   <form method="get" action="{{url_for('profile',username=usr.username,id=usr.id)}}">
+                                     <button type="submit">profile</button>
+                                     <button>Add buddy  </button>
+
+
+                                     </form>
+
+
+
+                                 </div>
+                                 </div>
+                                 </div>
+
+
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+</div>
+</div>
+
+{% endblock %}

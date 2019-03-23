@@ -1,0 +1,167 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+{% block login %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{{url_for('static',filename='bootstra.min.css')}}">
+
+<link rel="stylesheet" href="{{url_for('static',filename='styless.css')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+
+
+
+
+{% endblock %}
+
+{% if active %}
+
+
+{% else %}
+{% block nav %}
+<li class="active"><a href="{{url_for('home')}}">Home</a></li>
+<li><a href="{{url_for('contest')}}" >Contest</a></li>
+<li><a href="{{url_for('game')}}">Game</a></li>
+<li><a href="{{url_for('people')}}">People</a></li>
+<li><a href="{{url_for('blog')}}">Blog</a></li>
+<li><a href="{{url_for('chat')}}">Adda</a></li>
+<li class="profile" ><a href="{{url_for('profile',username=current_user.username,id=current_user.id)}}"><img  src="{{ image_file }}" alt="" />Profile</a></li>
+
+ {% endblock %}
+
+
+{% endif %}
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% for category,message in messages %}
+<div class="alert alert-{{ category }}">
+  {{ message }}
+</div>
+{% endfor %}
+{% endwith %}
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="container">
+  <div class="">
+  <div class="container img-container">
+        <div id="upload-div"></div>
+        <div class="img-div">
+
+          <form class="form-horizontal"  method="POST" action="" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+             {{ form.title(class='form-control',placeholder='Caption') }}
+
+
+             {{ form.image(class='form-control-file') }}
+             {% if form.image.errors %}
+            {% for error in form.image.errors %}
+               <span class="text-danger">{{ error }}</span></br>
+               {% endfor %}
+            {% endif %}
+              {{ form.submit(class='btn btn-default') }}
+          </form>
+
+
+
+
+        </div>
+  </div>
+  </div>
+</div>
+
+
+
+{% for post in posts %}
+{% if post.caption==None %}
+{% else%}
+<div class="container">
+<div class="">
+  <div class="container img-container">
+        <div id="upload-div"></div>
+        <div class="img-div">
+          <div class="header">
+
+          <img class="img-circle" src="{{url_for('static',filename='img/'+post.author.image_file)}}">
+          <a href="{{url_for('profile',username=post.author.username,id=post.author.id)}}"><b><i>{{ post.author.username }}</i></b></a>
+
+       </div>
+
+            <p class="pip">{{ post.caption }}</p>
+            {% if post.image==None %}
+            {% else %}
+            <img src="{{url_for('static',filename='img/'+post.image )}}">
+            {% endif %}
+              <small class="text-muted">{{ post.date_posted.strftime("%Y-%m-%d") }}</small>
+
+
+
+               <div class="link">
+                <a class="btn btn-danger btn-sm m-1" href={{url_for('post',post_id=post.id)}}>see post</a>
+
+                <div class="fb-comments" data-href="http://ajairahouse.com" data-numposts="5">
+                </div>
+                {% if post.comment==None %}
+                {% else %}
+                  {{ i.comment }}<small>{{ i.date_posted }}</small>
+                {% endif %}
+
+                <form class="form-horizontal"  method="POST" action="{{url_for('comment')}}" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                   {{ form.title(class='form-control',placeholder='Caption') }}
+
+
+                    {{ form.submit(class='btn btn-default') }}
+                </form>
+
+
+              </div>
+
+
+                                           <!--href={{url_for('post',post_id=post.id)}}-->
+
+
+
+
+
+
+
+
+
+            <!-- Modal -->
+
+            <!-- model
+
+
+
+           -->
+
+
+
+            <!-- Get link option-->
+
+
+
+  </div>
+  </div>
+</div>
+</div>
+
+
+
+{% endif %}
+{% endfor %}
+
+
+
+
+
+{% endblock %}

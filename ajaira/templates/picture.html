@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% if active %}
+
+
+{% else %}
+{% block nav %}
+<li><a href="{{url_for('home')}}">Home</a></li>
+<li><a href="{{url_for('contest')}}" >Contest</a></li>
+<li><a href="{{url_for('people')}}" >People</a></li>
+<li class="active"><a href="{{url_for('upload')}}">Upload</a></li>
+<li><a href="{{url_for('chat')}}">Adda</a></li>
+<li class="profile" ><a href="{{url_for('profile',username=current_user.username)}}"><img  src="{{ image_file }}" alt="" />Profile</a></li>
+
+ {% endblock %}
+
+{% endif %}
+
+
+
+<div class="container">
+
+  <!-- Main component for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <form class="form-horizontal"  method="POST" action="" enctype="multipart/form-data">
+      <div class="form-group">
+      <legend class="border-bottom mb-4"> {{ legend }}</legend>
+
+    {{ form.hidden_tag() }}
+
+        {{ form.title.label(class="col-md-3 control-label") }}
+        {% if form.title.errors %}
+          <div class="col-md-8">
+              {{ form.title(class='form-control form-control-lg is-invalid') }}
+          </div>
+              <div class="invalid-feedback">
+              {% for error in form.title.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %}
+              <div class="col-md-8">
+            {{ form.title(class='form-control',placeholder='title') }}
+          </div>
+
+        {% endif %}
+
+
+
+      </div>
+
+
+ 
+
+      <div class="form-group">
+        {{ form.image.label(class="col-md-3 control-label") }}
+        {{ form.image(class='form-control-file') }}
+        {% if form.image.errors %}
+
+          {% for error in form.image.errors %}
+          <span class="text-danger">{{ error }}</span></br>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+
+
+      <div class="form-group">
+        <label class="col-md-3 control-label"></label>
+        <div class="col-md-8">
+           {{ form.submit(class='btn btn-default') }}
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+{% for message in get_flashed_messages() %}
+  <script>
+    alert("{{ message }}");
+  </script>
+{% endfor %}
+
+{% endblock %}

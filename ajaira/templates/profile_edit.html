@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% if active %}
+
+
+{% else %}
+{% block nav %}
+<li><a href="{{url_for('home')}}">Home</a></li>
+<li><a href="{{url_for('contest')}}" >Contest</a></li>
+<li><a href="{{url_for('game')}}">Game</a></li>
+<li><a href="{{url_for('people')}}" >People</a></li>
+<li><a href="{{url_for('blog')}}">Blog</a></li>
+<li><a href="{{url_for('chat')}}">Adda</a></li>
+<li class="profile" class="active"><a  href="{{url_for('profile',username=current_user.username,id=current_user.id)}}"><img  src="{{ image_file }}" alt="" />Profile</a></li>
+
+ {% endblock %}
+
+
+{% endif %}
+
+<div class="container">
+    <h1> Profile</h1>
+  	<hr>
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="{{ image_file }}" class="avatar img-circle" alt="avatar">
+
+          <h2>{{ current_user.username }}</h2>
+          <h4>{{ current_user.email }}</h4>
+
+
+
+
+        </div>
+      </div>
+
+
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a>
+          <i class="fa fa-coffee"></i>
+
+
+        <form class="form-horizontal"  method="POST" action="" enctype="multipart/form-data">
+          <div class="form-group">
+        {{ form.hidden_tag() }}
+            {{ form.username.label(class="col-md-3 control-label") }}
+            {% if form.username.errors %}
+              <div class="col-md-8">
+                  {{ form.username(class='form-control form-control-lg is-invalid') }}
+              </div>
+                  <div class="invalid-feedback">
+                  {% for error in form.username.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                  <div class="col-md-8">
+                {{ form.username(class='form-control',placeholder='username') }}
+              </div>
+
+            {% endif %}
+
+
+
+          </div>
+
+
+          <div class="form-group">
+            {{ form.email.label(class="col-md-3 control-label") }}
+            {% if form.email.errors %}
+            <div class="col-md-8">
+            {{ form.email(class='form-control form-control-lg is-invalid') }}
+          </div>
+            <div class="invalid-feedback">
+              {% for error in form.email.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+              <div>
+              {% else %}
+                <div class="col-md-8">
+              {{ form.email(class='form-control',placeholder='Email') }}
+            </div>
+            {% endif %}
+          </div>
+
+
+
+          <div class="form-group">
+            {{ form.picture.label(class="col-md-3 control-label") }}
+            {{ form.picture(class='form-control-file') }}
+            {% if form.picture.errors %}
+
+              {% for error in form.picture.errors %}
+              <span class="text-danger">{{ error }}</span></br>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+               {{ form.submit(class='btn btn-default') }}
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+<hr>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ page_title }}</title>
+<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+		<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+	<link rel="stylesheet" href="{{ url_for("static", filename="css/style1.css") }}" type="text/css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400,700" type="text/css">
+</head>
+<body>
+
+	<div class="header">
+
+		<div class="wrapper">
+ 
+ 
+		</div>
+
+	</div>
+
+	<div id="content">
+	{% block content %}{% endblock %}
+	</div>
+
+	<div class="footer">
+
+		<div class="wrapper">
+
+			<ul>		
+		 
+				<li><a href="https://www.facebook.com/icerahi">Facebook</a></li>
+			</ul>
+
+			<p>&copy;{{ current_year }} Ajairahouse</p>
+
+		</div>
+	
+	</div>
+
+	{% for message in get_flashed_messages() %}
+		<script>
+			alert("{{ message }}");
+		</script>
+	{% endfor %}
+
+</body>
+</html>

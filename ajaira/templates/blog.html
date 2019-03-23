@@ -1,0 +1,213 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+{% block login %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{{url_for('static',filename='bootstra.min.css')}}">
+
+<link rel="stylesheet" href="{{url_for('static',filename='styless.css')}}">
+{% endblock %}
+
+{% if active %}
+
+
+{% else %}
+{% block nav %}
+<li ><a href="{{url_for('home')}}">Home</a></li>
+<li><a href="{{url_for('contest')}}" >Contest</a></li>
+<li><a href="{{url_for('game')}}">Game</a></li>
+<li><a href="{{url_for('people')}}">People</a></li>
+<li class="active"><a href="{{url_for('blog')}}">Blog</a></li>
+<li><a href="{{url_for('chat')}}">Adda</a></li>
+<li class="profile" ><a href="{{url_for('profile',username=current_user.username,id=current_user.id)}}"><img  src="{{ image_file }}" alt="" />Profile</a></li>
+
+ {% endblock %}
+
+
+{% endif %}
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% for category,message in messages %}
+<div class="alert alert-{{ category }}">
+  {{ message }}
+</div>
+{% endfor %}
+{% endwith %}
+<div class="container">
+  <div class="container img-container">
+        <div id="upload-div"></div>
+        <div class="img-div">
+
+          <form class="form-horizontal"  method="POST" action="" enctype="multipart/form-data">
+              {{ form.hidden_tag() }}
+             {{ form.title(class='form-control',placeholder='Caption') }}
+             {{ form.content(class='form-control',placeholder='Content') }}
+             {{ form.image(class='form-control-file') }}
+             {% if form.image.errors %}
+
+               {% for error in form.image.errors %}
+               <span class="text-danger">{{ error }}</span></br>
+               {% endfor %}
+            {% endif %}
+              {{ form.submit(class='btn btn-default') }}
+          </form>
+
+
+
+
+        </div>
+  </div>
+</div>
+
+{% for post in posts %}
+{% if post.title==None %}
+{% else %}
+<div class="container">
+<div class="">
+  <div class="container img-container">
+        <div id="upload-div"></div>
+        <div class="img-div">
+          <div class="header">
+
+          <img class="img-circle" src="{{url_for('static',filename='img/'+post.author.image_file)}}">
+          <a href="{{url_for('profile',username=post.author.username,id=post.author.id)}}"><b><i>{{ post.author.username }}</i></b></a>
+          </a>
+
+       </div>
+
+          <h1>  <p class="pip">{{ post.title }}</p></h1>
+            {% if post.image==None %}
+            {% else %}
+
+            <img src="{{url_for('static',filename='img/'+post.image )}}">
+            {% endif %}
+
+        {% if post.content==None %}
+        {% else %}
+         {{ post.content }}
+        {% endif %}
+
+
+
+            <br>  <small class="text-muted">{{ post.date_posted.strftime("%Y-%m-%d") }}</small>
+
+
+
+               <div class="link">
+                <a class="btn btn-danger btn-sm m-1"  href="{{url_for('blog_single',post_id=post.id)}}">See Post
+                </a>
+
+              </div>
+
+                                           <!--href=}-->
+
+
+
+
+
+
+
+
+
+            <!-- Modal -->
+
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">delete Post?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><br>
+
+              <form action="{{ url_for('delete_blog', post_id=post.id) }}" method="POST">
+                <input class="btn btn-danger" type="submit" value="Delete">
+
+
+              </form>
+              </div>
+            </div>
+            </div>
+            </div>
+            <!-- model
+
+
+
+           -->
+
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Update Post?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><br>
+
+              <form class="form-horizontal"  method="POST" action="{{ url_for('update_blog',post_id=post.id) }}" enctype="multipart/form-data">
+                  {{ form.hidden_tag() }}
+                 {{ form.title(class='form-control',placeholder='Title') }}
+                 {{ form.content(class='form-control',placeholder='Content') }}
+
+                  {{ form.submit(class='btn btn-default') }}
+              </form>
+              </div>
+            </div>
+            </div>
+            </div>
+
+
+            <!-- Get link option-->
+            <div class="modal fade" id="getlinkModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Copy This Link to Share with friends</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div>
+              http://www.ajairahouse.com{{ url_for('post',post_id=post.id)}}
+              </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button><br>
+
+              </div>
+            </div>
+            </div>
+            </div>
+
+
+
+
+  </div>
+  </div>
+</div>
+</div>
+{% endif %}
+{% endfor %}
+
+
+
+  </div>
+
+<hr>
+
+
+
+
+
+{% endblock %}
